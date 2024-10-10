@@ -16,9 +16,10 @@ public class Main {
 		for(int i=0; i<n; i++) {
 			st = new StringTokenizer(br.readLine(), " ");
 			
+			String command = st.nextToken();
 			int x;
 			
-			switch(st.nextToken()) {
+			switch(command) {
 				case "push":
 					stack.push(Integer.parseInt(st.nextToken()));
 					break;
