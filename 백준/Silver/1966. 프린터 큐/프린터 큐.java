@@ -1,68 +1,52 @@
-import java.util.Scanner;
 import java.util.LinkedList;
+	import java.util.Queue;
+	import java.util.Scanner;
 
-public class Main {
-	static LinkedList<int[]> q; // 중요도 저장 큐
-	
-	public static int solution(int m) {
-		int answer = 0;
+	public class Main {
+		public static void main(String args[]) {
+			Scanner in = new Scanner(System.in);
+			int TC = in.nextInt();	// 테스트케이스 개수
 		
-		while(!q.isEmpty()) {
-			int[] first = q.poll(); // 맨 앞의 원소
-			boolean isMax = true; // 해당 원소가 가장 큰지 검사하는 변수
+			while(TC-- > 0) {
+				int N = in.nextInt();	// 문서의 개수
+				int M = in.nextInt();	// 큐 위치
+				Queue<int[]> q = new LinkedList<>();	// 배열 큐 생성
 			
-			// 큐에 남아있는 원소들과 중요도 비교
-			for(int i=0; i<q.size(); i++) {
-				// 처음 뽑은 원소보다 큐에 있는 i번째 원소의 중요도가 클 경우
-				if(first[1] < q.get(i)[1]) {
-					// 뽑은 원소 및 i 이전의 원소들을 뒤로 재배치
-					q.offer(first);
-					for(int j=0; j<i; j++) {
-						q.offer(q.poll());
-					}
-					
-					// first원소가 가장 큰 원소가 아니였으므로 false를 하고 탐색 종료
-					isMax = false;
-					break;
+				for(int j=0; j<N; j++) {
+					q.add(new int[] {j, in.nextInt()});
 				}
+			
+				System.out.println(func(q, M));
 			}
-			
-			// first 원소가 가장 큰 원소가 아니였으므로 다음 반복문으로 넘어감
-			if(isMax == false) {
-				continue;
-			}
-			
-			// first 원소가 가장 큰 원소였으므로 해당 원소는 인쇄해야하는 문서
-			answer++;
-			
-			if(first[0] == m) { // 찾는 원소일 경우 종료
-				break;
-			}
-			
+		
 		}
-		
-		return answer;
-	}
-
-	public static void main(String[] args) {
-		Scanner in = new Scanner(System.in);
-		int k = in.nextInt();
-		StringBuilder sb = new StringBuilder();
-		
-		while(k-- > 0) {
-			int n = in.nextInt();
-			int m = in.nextInt();
+	
+		public static int func(Queue<int[]> q, int M) {
+			int result = 0;
+			while(!q.isEmpty()) {
+				int[] arr = q.poll();	// poll return값 배열
+				boolean chk = true;		// 중요도 높은 것 있으면 true
 			
-			q = new LinkedList<>();
+				for(int[] arrQ : q) {	// q 안의 값 모두 비교 후 높은 게 없으면 false
+					if(arrQ[1] > arr[1]) {
+						chk = false;
+						break;
+					}
+				}
 			
-			for(int i=0; i<n; i++) {
-				// {초기 위치, 중요도}
-				q.offer(new int[] {i, in.nextInt()});
+				if(chk) {
+					result++;
+					if(arr[0]==M) break;
+		
+				} else {
+					q.add(arr);	// 횟수증가
+				}
+			
+			
 			}
-			
-			sb.append(solution(m)).append("\n");
-		}
 		
-		System.out.println(sb);
+			return result;
+		}
+	
+	
 	}
-}
