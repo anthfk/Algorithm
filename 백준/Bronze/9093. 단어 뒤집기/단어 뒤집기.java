@@ -6,7 +6,7 @@ public class Main {
 		Scanner in = new Scanner(System.in);
 		int T = in.nextInt();
 		in.nextLine();
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		Stack<Character> stack = new Stack<>();
 		
 		while(T-- > 0) {
