@@ -7,25 +7,17 @@ public class Main {
 		int T = in.nextInt();
 		in.nextLine();
 		StringBuilder sb = new StringBuilder();
-		Stack<Character> stack = new Stack<>();
 		
 		while(T-- > 0) {
 			String s = in.nextLine();
-			String[] word = s.split(" ");
+			String[] words = s.split(" ");
 			
-			for(String w : word) {
-				for(char c : w.toCharArray()) {
-					stack.push(c);
-				}
-				
-				while(!stack.isEmpty()) {
-					sb.append(stack.pop());
-				}
-				sb.append(" ");
+			for(String w : words) {
+				sb.append(new StringBuilder(w).reverse().toString()).append(" ");
+				// stringbuilder 자체를 반환하므로 toString
 			}
 			sb.append("\n");
 		}
-		
 		System.out.println(sb);
 		
 	}
