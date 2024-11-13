@@ -1,32 +1,32 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.Scanner;
 import java.util.Stack;
 
-
 public class Main {
-
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringBuilder sb = new StringBuilder();
-		int T = Integer.parseInt(br.readLine());
+	public static void main(String[] args) {
+		Scanner in = new Scanner(System.in);
+		int T = in.nextInt();
+		in.nextLine();
+		StringBuffer sb = new StringBuffer();
+		Stack<Character> stack = new Stack<>();
 		
 		while(T-- > 0) {
-			Stack<Character> stack = new Stack<>();
-			String s = br.readLine() + "\n";
+			String s = in.nextLine();
+			String[] word = s.split(" ");
 			
-			for(char c : s.toCharArray()) {
-				if(c == ' ' || c == '\n') {
-					while(!stack.isEmpty()) {
-						sb.append(stack.pop());
-					}
-					sb.append(" ");
+			for(String w : word) {
+				for(char c : w.toCharArray()) {
+					stack.push(c);
 				}
-				else stack.push(c);
 				
+				while(!stack.isEmpty()) {
+					sb.append(stack.pop());
+				}
+				sb.append(" ");
 			}
-			sb.append('\n');
+			sb.append("\n");
 		}
+		
 		System.out.println(sb);
+		
 	}
 }
